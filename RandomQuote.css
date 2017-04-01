@@ -1,0 +1,86 @@
+html {
+  height: 100%; }
+
+body {
+width: 100%;
+  height: 100%;
+  margin: 0 auto -50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: cadetblue !important; }
+
+
+.card-header {
+    position: relative;
+    text-align: center;
+    margin: 10px;
+}
+
+.card {
+    background: #FFFFA5;
+    padding: 10px;
+    text-align: center;
+    width: 400px;
+    margin: 10px;
+    border-radius: 2px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.card:hover {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.card a:hover {
+    text-decoration: none;
+}
+
+.card .quoteText {
+    font-size: 20px;
+}
+
+.authTwitterInfo {
+    display: inline-block;
+    position: relative;
+    width: 400px;
+    height: 50px;
+    margin-top: 50px;
+}
+
+.authorInfo {
+    position: absolute;
+    margin-top: 5px;
+    right: 0;
+    padding: 5px;
+}
+
+.twitter {
+    position: absolute;
+    margin: 10px 0 10px 0;
+    font-size: 40px;
+    width: 50px;
+    left: 0;
+}
+
+.tweet{
+    color: cadetblue;
+}
+.refreshButton{
+    position: absolute;
+    margin: 5px 25px 0 0;
+    right: 0;
+    padding: 5px;
+}
+
+.btn-primary{
+    color: white;
+    background: cadetblue !important;
+    border-color: cadetblue !important;
+}
+
+.btn-primary:hover{
+    color:white;
+    background: #23527c !important;
+}
+

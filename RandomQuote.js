@@ -14,9 +14,10 @@ $(document).ready(function () {
 function quoteAPIRequest() {
     let data;
     let promise = $.ajax({
-        url: "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous",
+        url: "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous&count=1",
         headers: {
-            'accepts': 'json',
+            'content-type': "application/x-www-form-urlencoded",
+            'accepts': 'application/json',
             'X-Mashape-Key': 'FFZEl0a9f3msh57KQZDMGo2exgCop1H0W2JjsntQPH3pLqrTRY'
         }
     });
@@ -27,7 +28,7 @@ function quoteAPIRequest() {
 //Parse the paramater to JSON object and retrieve the values and assign the values to the html elements to render
 //Also call tweetQuote
 function showQuote(result) {
-    let quoteObject = JSON.parse(result);
+    let quoteObject = result;
     let author = quoteObject.author;
     let quote = quoteObject.quote;
 
@@ -40,6 +41,7 @@ function showQuote(result) {
 function startRequest(){
      quoteAPIRequest().done(function (result) {
         console.log("Ajax call was a success");
+        
         showQuote(result);
     }).fail(function (jqXHR, textStatus, errorThrown) {
         console.log("Error with the AJAX request: " + jqXHR.status + "  " + textStatus + "  " + errorThrown);

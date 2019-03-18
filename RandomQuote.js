@@ -3,8 +3,8 @@ $(document).ready(function () {
 
     //Call the startRequest function every time button is clicked.
     let refreshQuote = document.querySelector(".refreshButton");
-    refreshQuote.addEventListener("click", function(){
-    startRequest();
+    refreshQuote.addEventListener("click", function () {
+        startRequest();
     }, false);
 
 }, false)
@@ -12,23 +12,28 @@ $(document).ready(function () {
 
 //Make an Ajax call to an API that returns a random quote. Returning the AJAX call (promise).
 function quoteAPIRequest() {
-    let data;
-    let promise = $.ajax({
-        url: "https://andruxnet-random-famous-quotes.p.mashape.com/?cat=famous&count=1",
+    return fetch('https://andruxnet-random-famous-quotes.p.rapidapi.com/?count=1', {
         headers: {
-            'content-type': "application/x-www-form-urlencoded",
-            'accepts': 'application/json',
-            'X-Mashape-Key': 'FFZEl0a9f3msh57KQZDMGo2exgCop1H0W2JjsntQPH3pLqrTRY'
-        }
-    });
-
-    return promise;
+            "X-RapidAPI-Key": "Yp8LSdqwRwmshIZYexwjpMhSKbTTp1KlemHjsnKrRECZystDTs",
+            // "Content-Type": "application/x-www-form-urlencoded",
+        },
+    })
+        .then(function (response) {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error(response.json);
+        })
+        .catch(function (error) {
+            console.log('There was a problem with the fetch request' + error.message);
+            document.querySelector(".quoteText").textContent = "Problem with connecteing to Server :(";
+        })
 }
 
 //Parse the paramater to JSON object and retrieve the values and assign the values to the html elements to render
 //Also call tweetQuote
 function showQuote(result) {
-    let quoteObject = result;
+    let quoteObject = result[0];
     let author = quoteObject.author;
     let quote = quoteObject.quote;
 
@@ -38,20 +43,14 @@ function showQuote(result) {
 }
 
 //Call the API request and if the return value is done then show the resulting quote other wise handle the failure
-function startRequest(){
-     quoteAPIRequest().done(function (result) {
-        console.log("Ajax call was a success");
-        
-        showQuote(result);
-    }).fail(function (jqXHR, textStatus, errorThrown) {
-        console.log("Error with the AJAX request: " + jqXHR.status + "  " + textStatus + "  " + errorThrown);
-        document.querySelector(".quoteText").textContent = "Problem with connecteing to Server :(";
+async function startRequest() {
+    let result = await quoteAPIRequest();
+    showQuote(result);
 
-    })
 }
 
 //Assign the href attribute of element "a" with the proper url and paramaters
-function tweetQuote(quote, author){
+function tweetQuote(quote, author) {
     let tweet = document.querySelector(".tweet");
     tweet.setAttribute("href", `https://twitter.com/intent/tweet?text="${quote}" -${author}`);
 }
